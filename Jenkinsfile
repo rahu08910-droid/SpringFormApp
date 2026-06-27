@@ -16,17 +16,17 @@ pipeline{
         }
         stage('test'){
             steps{
-                junit '**/target/surefire-reports/*.xml'
+                sh 'mvn test'
             }
         }
         stage('artifact'){
             steps{
-                archiveArtifacts artifacts: 'target/*.jar'
+                archiveArtifacts artifacts: 'target/*.war'
             }
         }
         stage('deploy to tomcat'){
             steps{
-                sh 'cp target/*.jar /opt/tomcat/webapps/'
+                sh 'cp target/*.war /opt/tomcat/webapps/'
             }
         }
     }
